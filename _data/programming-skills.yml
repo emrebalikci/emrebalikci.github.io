@@ -1,0 +1,27 @@
+- name: Java
+  percentage: 80
+  color: danger
+
+- name: Kotlin
+  percentage: 70
+  color:
+
+- name: XML
+  percentage: 70
+  color:
+
+- name: HTML
+  percentage: 70
+  color:
+
+- name: CSS
+  percentage: 50
+  color: dark
+
+- name: Javascript
+  percentage: 40
+  color: dark
+
+- name: NodeJS
+  percentage: 40
+  color: dark

@@ -1,0 +1,112 @@
+---
+title:  "0'dan 1'e SSH"
+date:   2019-09-05 23:30:00
+categories: [Unix]
+tags: [ssh]
+style: fill
+color: blue
+description: Who would've known home cooking can be so enjoyable!
+---
+Güvenli Kabuk (SSH), güvenliği artıran **Şifreleme** ve **Kimlik Doğrulama** özellikleri sunar. Diğer iki önemli özellik
+1. SSH Tüneli
+2. TCP Bağlantı Noktası iletme
+
+Kimlik doğrulama için, iki yaygın kullanılan mekanizma:
+1. Parola tabanlı
+2. Anahtar tabanlı (önerilen)
+
+SSH protokolü ayrıca farklı yinelemelere sahiptir ve bunlar arasında en yaygın kullanılan versiyonlardır.
+
+ - SSH sürüm 1
+ - SSH sürüm 2 (önerilir)
+
+Şifreleme ve veri güvenliğini tartıştığımızda, öncelikle kullanılan şifreleme sistemlerinin iki türü vardır.
+
+1. Genel anahtar şifreleme (veya bazen asimetrik şifreleme olarak adlandırılır)
+2. Gizli anahtar şifreleme (veya bazen simetrik şifreleme olarak adlandırılır).
+
+Günümüzdeki güvenlik sisteminin çoğu, iletişimde güvenliği sağlamak için bu iki türü birden fazla şekilde kullanır.
+
+Asimetrik şifrelemenin bir sürü ek yükü vardır ve onu kullrak verilerin şifresini çözmek biraz zaman alıcıdır. Yani Asimetrik şifreleme, sadece simetrik şifreleme için kullanılacak gizli htarı paylaşmak için kullanılır.
+
+SSH bağlantısı kurmak için sunucu ve istemci arasında güvenli bir kl yapmamız gerekiyor. İlk istemci, istemci tarafından bağlantı başlatıldığında sunucuyu doğrular. Sonra sadece, aralarında güvenli bir simetrik kl oluşur. Bu güvenli kl istemcinin kimliğini doğrulamak, htarları, şifreleri vb. Paylaşmak için kullanılır.
+
+Hadi adım adım gidelim:
+
+  - Sunucu kimliğini istemciye açıklar
+
+Bu kimlik, sunucunun genel htarıdır ve çoğunlukla / etc / ssh dizininde bulunur.
+
+![rsa pub key](https://i.hizliresim.com/4pW1LL.png)
+
+İstemci ilk kez sunucuyla iletişim kuruyorsa, istemci aşağıdaki gibi uyarıları alır:
+
+     Bağlanmaya devam etmek istediğinizden emin misiniz (evet / hayır)?
+
+İlk bağlantıdan sonra, bu  makine (sunucu) kimlik anahtarı, istemci makinede "** known_hosts **" adlı bir dosyaya kaydedilir, böylece gelecekteki istemcide sunucuya bağlanırken böyle bir uyarı alınmaz.
+
+> Yukarıdaki anahtar bir kullanıcı kimliği değil bir ana bilgisayar kimliğidir. Yani, herhangi bir istemci
+> bu sunucuya bağlanmak, sunucu kimliğiyle aynı  bilgisayar anahtarına sahip olacaktır.
+
+  - Sunucu anahtarı
+
+Bu anahtar, ssh yapılandırma dosyasında (/etc /ssh /ssh_config) belirtilen varsayılan yapılandırmaya göre her saat ve bir üretilir.
+
+![server-key generation](https://i.hizliresim.com/4pWaqA.png)
+
+ - Baytları kontrol et
+8 adet de rastgele bayt da kontrol edilir. istemcinin bir sonraki cevap sırasında bu baytları sunucuya cevabında göndermesi gerekir.
+
+ - Şifreleme
+
+Sunucu tarafından desteklenen şifreleme algoritmalarının listesine göre, istemci basitçe rastgele bir simetrik ana oluşturur ve bu simetrik anahtarı sunucuya gönderir. Bu simetrik anahtar, bu oturum sırasında tüm iletişimin şifresini çözmek ve şifresini çözmek için kullanılacaktır.
+
+İstemci bu oturum htarını (bu oturum için simetrik anahtar) sunucuya çift şifreleme yaparak gönderirken ek bir özen gösterir. İlk şifreleme, sunucu  anahtarı tarafından yapılır (sunucu tarafından paylaşılır) ve ikinci şifreleme de sunucu anahtarı tarafından yapılır (bu, her bir saatte bir değişmeye devam eder). Sunucunun  bilgisayar özel htarına (/ etc / ssh / ssh_host_rsa_key) sahip olduğundan, mesajın şifresini çözemez çünkü saat başı değişmeye devam eden sunucu anahtarı tarafından şifrelenir. Bu çift şifreli oturum anahtarıyla birlikte, istemci seçilen algoritmayı sunucu tarafından verilen desteklenen algoritma listesinden gönderir.
+
+ - Sunucuyu Doğrulamak
+Sunucunun kimliğini doğrulamak için, istemcinin, sunucunun 4. adım sırasında gönderilen oturum htarının şifresini çözebildiğinden emin olması gerekir. istemci, sunucudan bir onay mesajı bekler.
+Sunucudan gelen onay, istemcinin gönderdiği simetrik oturum anahtarıyla şifrelenmelidir. Onay mesajı beklemenin bu adımı istemci için çok önemlidir, çünkü istemcinin sunucu  bilgisayarın anahtarının gönderilip gönderilmediğini doğrulamak için başka bir yolu yoktur.
+İstemci sunucudan bir onay aldığında, ikisi de şimdi bu simetrik şifreleme anahtarıyla iletişimi başlatabilir.
+
+ - İstemciyi Doğrulamak
+İstemci kimlik doğrulaması bu şifreli kl üzerinden gerçekleşir. İstemcinin kimliğini doğrulamak için kullanılabilecek birden fazla yöntem var
+
+ - Genel anahtar
+ - Parola
+ - Kerberos
+ - Rhosts
+
+     **Parola Doğrulama**: (En çok kullanılan) - Doğru şifreyi kullarak yerel kullanıcı oturum açmaya benzer. İstemci tarafından sunucuya iletilen şifre, oturum simetrik anahtarı ile şifrelenir (yalnızca sunucu ve istemcinin bildiği)
+
+**Genel anahtar Kimlik Doğrulaması**: (En Güçlü)
+1. istemcinin ssh-keygen yaparak özel (id_rsa) ve ortak (id_rsa.pub) anahtar oluşturması gerekir.
+![SSH-keygen](https://i.hizliresim.com/dLl8bp.png)
+2. Genel anahtarı, id_rsa.pub dosyasının içeriğini **sunucu tarafı yetkilisi_keys** dosyasına ekleyerek sunucu(lar) ile paylaşın. Bu yetkili_key dosyası sunucunun .ssh dizininde bulunmalıdır.
+3. Açık anahtar kimlik doğrulama isteği aldığında sunucu, ilk önce istemci için bir meydan okuma olarak rastgele 256 bitlik bir dize oluşturur ve bunu yetkili_ anahtarlar dosyasının içinde bulunan istemci açık anahtarıyla şifreler.
+4. Meydan okumayı alan istemci, şifresini özel anahtarla (id_rsa) çözecektir.
+5. İstemci, meydan okuma dizisini oturum anahtarıyla birleştirir (önceden görüşülmüş ve simetrik şifreleme için kullanılıyor.) Ve md5 karma değeri üretecek ve sunucuya gönderilecektir.
+6. Sunucu, String ve session anahtarını kulllanarak kendi md5 hash değerini üretecek ve değeri istemci tarafından gönderilen değer ile karşılaştıracaktır. Eşleşirse, istemci kimlik doğrulaması başarılı olur.
+
+
+**SSH protokolü sürüm 2**
+SSH protokolü sürüm 2, bugünlerde kullanılan varsayılan protokoldür.
+SSH1 ve SSH2 arasındaki fark
+
+  - Paylaşmak için sunucu htarı yerine Diffie-Hellman htarı kullanılır.
+    sürüm 2 protokolündeki oturum htarı
+
+  - ssh 2'de Rhost desteği yok
+
+  - SSH protokolü sürüm 1, yalnızca simetrik görüşmelere izin verir
+    şifreleme algoritması, diğer her şey sabit kablolu (mac,
+    sıkıştırma vb.)
+
+  - SSH 2, kullanılan ortak htarlar için sertifikaları destekler
+
+  - SSH 2 sunucusu istemciyi birden fazla kimlik doğrulaması kullanmaya zorlayabilir
+    başarılı olmak için tek bir oturumda yöntemler. Ancak ssh sadece sürüm 1
+    oturum başına bir yöntemi destekler
+
+  - SSH sürüm 2, oturum htarının düzenli aralıklarla değiştirilmesine izin verir.
+
+  
