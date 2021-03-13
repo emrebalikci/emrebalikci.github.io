@@ -74,7 +74,7 @@ twitch:
 twitter:
   url   : https://www.twitter.com/
   icon  : fab fa-twitter
-  color : 1da1f2
+  color : 
 
 vimeo:
   url   : https://www.vimeo.com/
@@ -84,4 +84,4 @@ vimeo:
 youtube:
   url   : https://www.youtube.com/
   icon  : fab fa-youtube
-  color : ff0000
+  color : red

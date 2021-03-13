@@ -1,27 +1,28 @@
-- name: Java
-  percentage: 80
-  color: danger
 
-- name: Kotlin
-  percentage: 70
-  color:
+#- name: Java
+#  percentage: 80
+#  color: 
 
-- name: XML
-  percentage: 70
-  color:
+#- name: Python
+#  percentage: 70
+#  color: dark
 
-- name: HTML
-  percentage: 70
-  color:
+#- name: C#
+#  percentage: 70
+#  color:
 
-- name: CSS
-  percentage: 50
-  color: dark
+#- name: Angular
+#  percentage: 70
+#  color:
 
-- name: Javascript
-  percentage: 40
-  color: dark
+#- name: CSS
+#  percentage: 50
+#  color: dark
 
-- name: NodeJS
-  percentage: 40
-  color: dark
+#- name: Javascript
+#  percentage: 40
+#  color: dark
+
+#- name: NodeJS
+#  percentage: 40
+#  color: dark
