@@ -2,7 +2,7 @@
 title               : Emre Balıkçı
 description         : >-                               # >- means to ignore newlines until "url:"
                       Hi! I'm Emre, a Software Engineer by day and a hobbyist by night.
-#latest_blog_post    : /blog/a-special-year
+latest_blog_post    : /blog/index.html
 url                 : "emrebalikci.com"                         # base hostname & protocol for your site (e.g. http://example.com)
 baseurl             : ""                    # subpath of your site (e.g. /blog) [IMPORTANT: use "" if your are hosting at https://username.github.io directly]
 repository          : emrebalikci/emrebalikci.github.io    # repository metadata on GitHub Pages [know more at https://help.github.com/en/articles/repository-metadata-on-github-pages]
