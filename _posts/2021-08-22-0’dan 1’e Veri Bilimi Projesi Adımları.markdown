@@ -17,7 +17,7 @@ Temel olarak;
 
 Bir veri bilimi projesinden bastan sona nasıl yaklaşılması gerektiğinden, proje boyunca nelere dikkat edilmeli ve nasıl yönetilebilir durumundan bahsedeceğiz. Anlatacağımız her bir madde projenizin sonuna kadar size yol gösterecektir. (Bu maddeler projenize, kurumuzun kültürüne veya tecrübenize göre değişkenlik gösterebilir. Kendi isteğinize göre ekleme veya azaltmalar yapabilirsiniz.)
 
-![Data Science Adımları](https://github.com/emrebalikci/emrebalikci.github.io/assets/photos/blog/datascience_1.png")
+[![Veri Bilimleri Adımları](https://www.linkpicture.com/q/datascience_1.png)](https://www.linkpicture.com/view.php?img=LPic6125c9277b8e8611933386)
 
 **0. Adım**<br />
 **“Doğru Sorular Sorun”**<br />
@@ -38,7 +38,7 @@ Bu gibi sorularla kaba taslak yaptığınız ölçüler sayesinde proje ekibinin
 
 Yatırım getirinizi hesaplamak (Return on Investment = ROI ) için aşağıdaki bu basit formülü kullanabilirsiniz;
 
-![Return on Investment](https://github.com/emrebalikci/emrebalikci.github.io/assets/photos/blog/roı.jpeg)
+[![Return on Investment = ROI ](https://www.linkpicture.com/q/roı.jpeg)](https://www.linkpicture.com/view.php?img=LPic6125c9dc182db479829932)
 
 **2. Adım**<br />
 **“Bir yaklaşım belirleyin veya temel bir model oluşturun.”**<br />
