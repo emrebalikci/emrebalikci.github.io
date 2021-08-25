@@ -38,7 +38,7 @@ Bu gibi sorularla kaba taslak yaptığınız ölçüler sayesinde proje ekibinin
 
 Yatırım getirinizi hesaplamak (Return on Investment = ROI ) için aşağıdaki bu basit formülü kullanabilirsiniz;
 
-![Return on Investment](https://github.com/emrebalikci/emrebalikci.github.io/assets/photos/blog/roi.jpeg)
+![Return on Investment](https://github.com/emrebalikci/emrebalikci.github.io/assets/photos/blog/roı.jpeg)
 
 **2. Adım**<br />
 **“Bir yaklaşım belirleyin veya temel bir model oluşturun.”**<br />
