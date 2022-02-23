@@ -18,8 +18,7 @@
   
 #### 🔭 Fields I'm Interested In:
   - Web based Technologies 
-  - Data Science 
-  - Machine Learning
+  - Data Science
 
 #### Languages and Tools I Enjoy Using:
 
